@@ -1,0 +1,102 @@
+JSP doesn't work in intellij but works eclipse
+
+ ERROR :
+ JSP file downloading :
+  Open website in private tab
+
+---->
+Notes:  Using War packaging.
+        implement directory structure properly in future if require(webapp directory) . Check on google
+Step 1 :
+In IntelliJ IDE Click on Run -> Edit Configurations...
+In the Working Directory(in Modify options-->working directory) text field put %MODULE_WORKING_DIR%, for linux it may be $MODULE_WORKING_DIR
+Click Apply button
+Click OK button
+Run your Application
+(Above step only when you have multiple spring projects in one folder and you have opened this parent folder. When you have opened only direct project folder)
+
+Step2 :
+Add JSP dependencies
+           <dependency>
+       			<groupId>org.apache.tomcat.embed</groupId>
+       			<artifactId>tomcat-embed-jasper</artifactId>
+       			<scope>provided</scope>
+       		</dependency>
+       		<dependency>
+       			<groupId>javax.servlet</groupId>
+       			<artifactId>jstl</artifactId>
+       			<version>1.2</version>
+       		</dependency>
+
+step 3:
+create  "src/main/webapp/WEB-INF" folder.
+
+Step 4 : Write configuration
+spring.mvc.view.prefix=/WEB-INF/JSP/
+spring.mvc.view.suffix=.jsp
+which means jsp file will be in  "/webapp/WEB-INF" folder and extension is .jsp . if we dont specifies then spring mvc search file in webapp folder and we have to type endpoint like this http://localhost:8080/index.jsp
+
+Notes :
+jsp file should be in webapp folder and if you want to attach css to jsp then you have to put it into resources/static folder. webapp is parent directory , so spring search webapp folder only . If css doesn't find in webapp then spring fails to attach, so it is better to keep file in static folder . This is standard provided by spring
+//================================================================//
+
+JAR (Java Archive) and WAR (Web Archive) are both archive file formats used in Java, but they serve different purposes and have distinct characteristics. Here are the key differences between JAR and WAR files:
+
+**JAR (Java Archive):**
+
+1. **Purpose**:
+   - JAR files are used to package Java classes and related resources, such as libraries, images, and property files. They are typically used for stand-alone Java applications and libraries.
+
+2. **Structure**:
+   - JAR files are regular archive files that can contain compiled Java classes (`.class` files) and other resources. They don't have a predefined directory structure.
+
+3. **Deployment**:
+   - JAR files are not meant for web applications and are not deployed to a web server. They are run directly on the Java Virtual Machine (JVM) or used as libraries in other Java applications.
+
+4. **Main Use Cases**:
+   - JAR files are commonly used for distributing Java libraries or applications that are executed outside of a web container. They are often used for command-line applications and desktop software.
+
+**WAR (Web Archive):**
+
+1. **Purpose**:
+   - WAR files are specifically designed for packaging and deploying web applications. They contain not only Java classes and resources but also web-related components like JSPs, HTML files, XML configuration, and static content (e.g., images, CSS).
+
+2. **Structure**:
+   - WAR files have a well-defined structure. They must contain specific directories, such as `WEB-INF` for configuration and `META-INF` for metadata. The `WEB-INF` directory typically contains the `web.xml` deployment descriptor.
+
+3. **Deployment**:
+   - WAR files are meant for deployment in a web container (e.g., Apache Tomcat, Jetty). They are responsible for delivering dynamic web content and services over HTTP.
+
+4. **Main Use Cases**:
+   - WAR files are used for packaging and deploying Java web applications. These applications can be accessed through a web browser and are hosted on web servers. Examples include e-commerce websites, online forums, and web-based software.
+
+In summary, JAR files are used for general Java applications and libraries, whereas WAR files are used specifically for web applications that run in a web server or servlet container. The choice between JAR and WAR depends on the type of Java application you're developing and the deployment environment.
+
+//================================================================//
+
+JSP (JavaServer Pages) is a technology for creating dynamic web pages in Java. While JSP can work with Spring Boot, there are some considerations and limitations to be aware of:
+
+1. **Jar vs. War Packaging**: Spring Boot supports both JAR and WAR packaging. When you package your Spring Boot application as a JAR, the default behavior is to embed an embedded servlet container (like Tomcat or Jetty). In this case, JSP rendering might not work as expected due to limitations of embedded servlet containers. To use JSP with Spring Boot, it's recommended to package your application as a WAR and deploy it to a standalone servlet container (like an external Tomcat instance).
+
+2. **View Resolver Configuration**: Spring Boot's default configurations might not include the necessary settings for JSP rendering. You would need to configure a JSP view resolver explicitly. Also, the location of JSP files and the prefix/suffix configuration need to be set correctly.
+
+3. **Limitations of Embedded Containers**: The embedded servlet containers provided by Spring Boot are optimized for lightweight deployments and might not support all JSP features fully. Some advanced features of JSP might not work as expected in an embedded container.
+
+4. **Template Engines**: Spring Boot promotes the use of template engines like Thymeleaf, FreeMarker, and Velocity for view rendering. These template engines are more modern and offer better support for various features. Thymeleaf, in particular, is well-integrated with Spring Boot and provides a lot of features for creating dynamic web pages.
+
+5. **Classpath Resources**: JSP files are typically located under the `WEB-INF` directory in a web application. Spring Boot uses a different approach for serving resources, and JSPs under `WEB-INF` might not be accessible in the same way as traditional web applications.
+
+6. **Maintenance and Portability**: JSP technology has been around for a long time and might not be as actively maintained as more modern template engines. Additionally, choosing a template engine that is independent of the servlet container can make your application more portable across different environments.
+
+Given these considerations, if you specifically want to use JSP in a Spring Boot application, consider packaging your application as a WAR and deploying it to a standalone servlet container. However, if you're open to exploring other view technologies, Thymeleaf is a popular and well-supported choice that works seamlessly with Spring Boot and provides a more modern and flexible way to create dynamic web pages.
+
+
+//Error :
+ If entity not creating in database or controller endpoint not reaching(not displaying) then
+
+ see you created all folder in root directory or not
+ See all connection details carefully
+ IMP : Keep calm and have patience, Half problems will solve automatically
+
+
+

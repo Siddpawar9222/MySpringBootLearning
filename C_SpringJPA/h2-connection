@@ -1,0 +1,26 @@
+h2 database connection Steps  :
+
+-Add h2 dependency , jpa and mysql
+-Write all following properties
+
+   spring.datasource.url=jdbc:h2:mem:testdb
+   spring.datasource.driverClassName=org.h2.Driver
+   spring.datasource.username=root
+   spring.datasource.password=123
+   spring.h2.console.enabled=true
+   spring.jpa.hibernate.ddl-auto=update
+   spring.jpa.defer-datasource-initialization=true
+
+Open
+http://localhost:8080/h2-console/
+ and connect using
+    jdbc url - jdbc:h2:mem:testdb , username and password
+
+
+-if you want predefined data in table then
+    create data.sql file in resource folder
+    table name should be in lowercase(@Table(name = "employee")) and column name should be as per sqp conventions(mobile_no)
+
+
+IMP :
+ Always mind about giving name to table and column . There are some predefined in mysl . e.g. user name of table not creating , I changed name of table

@@ -1,0 +1,53 @@
+Using .jar packaging (Best and easy approach)
+Visit
+https://www.springboottutorial.com/creating-web-application-with-spring-boot
+
+Also check crud-application project
+
+
+Dependency :
+
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+To deploy :
+
+ Add in pom.xml :
+
+ <packaging>war</packaging>
+
+ AND
+
+  build should be like this
+
+ 	<build>
+ 		<plugins>
+ 			<plugin>
+ 				<groupId>org.springframework.boot</groupId>
+ 				<artifactId>spring-boot-maven-plugin</artifactId>
+ 				<configuration>
+ 					<excludes>
+ 						<exclude>
+ 							<groupId>org.projectlombok</groupId>
+ 							<artifactId>lombok</artifactId>
+ 						</exclude>
+ 					</excludes>
+ 				</configuration>
+ 				<executions>
+ 					<execution>
+ 						<goals>
+ 							<goal>repackage</goal>
+ 						</goals>
+ 					</execution>
+ 				</executions>
+ 			</plugin>
+ 		</plugins>
+ 		<finalName>crud-application</finalName>
+ 	</build>
+
+
+
+ it can still be run using java -jar your-app.war.
