@@ -44,6 +44,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 }
 
 /*
+What is OncePerRequestFilter ?
+https://stackoverflow.com/questions/13152946/what-is-onceperrequestfilter
+
 SecurityContextHolder.getContext().getAuthentication() used to  obtain the currently authenticated user's authentication details within your application.
 
 UsernamePasswordAuthenticationToken:

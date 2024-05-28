@@ -4,4 +4,3 @@ INSERT INTO employee (name, email, mobile_no, gender, age, nationality) VALUES
     ('Anna Tyler', 'anna@example.com', '565412', 'Female', 20, 'UK') ;
 
 
-

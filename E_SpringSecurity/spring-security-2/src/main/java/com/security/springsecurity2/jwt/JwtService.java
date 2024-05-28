@@ -27,7 +27,7 @@ public class JwtService {
                 .setId(String.valueOf(id))
                 .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 30 *60))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
     }
 
@@ -74,4 +74,9 @@ public class JwtService {
 }
 /*
 Parsing JWTs means extracting and interpreting the information contained within a JSON Web Token (JWT).
+
+- new Date(System.currentTimeMillis())  // Gives current time
+- new Date(System.currentTimeMillis() + 1000 * 30 *60))  //1000 * 60 * 30 calculates the total number of milliseconds in 30 minutes. This calculation is necessary because the Date class in Java works with milliseconds, so we need to express the duration in milliseconds when adding it to the current time.
+
+
  */

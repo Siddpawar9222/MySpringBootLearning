@@ -31,6 +31,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+
     public ResponseEntity<?> registerUser(UserDto userDto) throws BadRequestException, ResourceUnavailableException {
         Boolean existsByUsername = userRepository.existsByUsername(userDto.getUsername());
         if (existsByUsername) {
@@ -79,4 +80,5 @@ public class AuthService {
             throw new UsernameNotFoundException("Invalid user request !");
         }
     }
+
 }

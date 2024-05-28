@@ -4,13 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
@@ -38,6 +35,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
             http
+
+ // For rest api, to work with jsessionId
+//        http.
+//                securityContext((context) -> context
+//                        .requireExplicitSave(false))
+//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                     .csrf(csrf->csrf.disable())
                     .cors(cors->cors.disable())
                    .authorizeHttpRequests((requests) ->
@@ -65,4 +68,12 @@ public class SecurityConfig {
 .httpBasic() is a configuration method that enables HTTP Basic Authentication. HTTP Basic Authentication involves sending credentials (username and password) in the HTTP request headers.
 
 Customizer.withDefaults() is a convenience method that provides default settings for form-based authentication. It simplifies the configuration by applying sensible defaults, but you can further customize the behavior if needed.
+
+
+http.
+                securityContext((context) -> context
+                        .requireExplicitSave(false))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
+       specifies the session creation policy. In this case, the policy is set to ALWAYS, meaning that a session will always be created if one doesn't exist. This ensures that a session is available for each request, regardless of whether the client explicitly initiates a session.
+
  */

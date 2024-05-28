@@ -24,3 +24,5 @@ http://localhost:8080/h2-console/
 
 IMP :
  Always mind about giving name to table and column . There are some predefined in mysl . e.g. user name of table not creating , I changed name of table
+
+For H2 database GenerationType must be IDENTITY. Otherwise it  will give error
