@@ -1,9 +1,0 @@
-INDEX VERSION 1.134
-D:\Destop\Coding\JavaAdvance\Spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3314695671.index
-\BootWeb\src\main\java
-D:\Destop\Coding\JavaAdvance\Spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2811535772.index
-\BootWeb1\src\main\java
-D:\Destop\Coding\JavaAdvance\Spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1152546812.index
-\BootWeb\src\main\java
-D:\Destop\Coding\JavaAdvance\Spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3845006927.index
-\BootWeb1\src\main\java
