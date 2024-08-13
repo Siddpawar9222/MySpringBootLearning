@@ -3,6 +3,7 @@ package com.example.spring_caching_1.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -12,6 +13,7 @@ import java.util.Collection;
 import java.util.Map;
 
 @Service
+@Slf4j
 public class CacheService {
 
     @Autowired
@@ -25,11 +27,21 @@ public class CacheService {
         Cache cache = cacheManager.getCache(cacheName);
         if (cache != null) {
             Object allAvailableCache = cache.getNativeCache();
+            log.info(allAvailableCache.toString());
             ObjectMapper objectMapper = new ObjectMapper();
             String respData = objectMapper.writeValueAsString(allAvailableCache);
             TypeReference<Map<Object, Object>> typeRef = new TypeReference<>() {};
             Map<Object, Object> jsonMap = objectMapper.readValue(respData, typeRef);
             return jsonMap ;
+        }
+        return null;
+    }
+
+    public Object getCacheTest(String cacheName) throws JsonProcessingException {
+        Cache cache = cacheManager.getCache(cacheName);
+        if (cache != null) {
+            Object allAvailableCache = cache.getNativeCache();
+            return allAvailableCache ;
         }
         return null;
     }
