@@ -39,6 +39,8 @@ public class RedisConfigWithCaching {
         return template;
     }
 
+    // here Hash means nested object
+
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         RedisCacheConfiguration cacheConfig = RedisCacheConfiguration.defaultCacheConfig()
@@ -57,4 +59,13 @@ public class RedisConfigWithCaching {
 }
 /*
 With help of above step up we can use redis cache in our application. We can use annotations like @Cacheable, @CachePut, @CacheEvict etc. directly with any manual code.
+
+// **************************************** //
+
+Serialization for RedisTemplate: Affects all direct Redis operations (e.g., manual puts and gets). If you're directly interacting with Redis using RedisTemplate, the serialization configured here will apply.
+
+Serialization for CacheManager: Specifically affects how values are serialized and deserialized for cache entries. This is used when you are using Spring's caching abstraction (@Cacheable, @CachePut, etc.). It ensures that values stored in the cache adhere to the serialization rules defined here.
+
+Automatic Handling: When you configure serializers, deserialization is automatically handled when you read from Redis, so you don't need to manually implement deserialization logic.
+
 */
