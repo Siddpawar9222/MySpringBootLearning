@@ -76,23 +76,6 @@ public class ApplicationExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(UsernameAlreadyExistException.class)
-    public ResponseEntity<Response> handleUsernameAlreadyExistException(UsernameAlreadyExistException exception) {
-        Response response = new Response();
-        response.setMessage(exception.getMessage());
-        response.setResultCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
-        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    @ExceptionHandler(LoginException.class)
-    public ResponseEntity<Response> LoginException(LoginException exception) {
-        Response response = new Response();
-        response.setMessage(exception.getMessage());
-        response.setResultCode(HttpStatus.UNAUTHORIZED.value());
-        return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
-    }
-
-
     @ExceptionHandler(NumberFormatException.class)
     public ResponseEntity<Response> handleInternalServerException(NumberFormatException e) {
         Response response = new Response();
