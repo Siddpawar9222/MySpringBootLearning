@@ -1,7 +1,7 @@
-package com.makersharks.makersharks_assessment.exception;
+package com.example.PaginationAndSorting.exception;
 
 
-import com.makersharks.makersharks_assessment.model.Response;
+import com.example.PaginationAndSorting.model.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

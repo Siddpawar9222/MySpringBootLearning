@@ -1,13 +1,12 @@
-package com.makersharks.makersharks_assessment;
+package com.example.PaginationAndSorting;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MakersharksAssessmentApplication {
+public class PaginationAndSorting {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MakersharksAssessmentApplication.class, args);
+		SpringApplication.run(PaginationAndSorting.class, args);
 	}
-
 }

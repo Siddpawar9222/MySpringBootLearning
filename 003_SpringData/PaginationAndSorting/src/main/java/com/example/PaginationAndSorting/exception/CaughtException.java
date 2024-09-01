@@ -1,4 +1,4 @@
-package com.makersharks.makersharks_assessment.exception;
+package com.example.PaginationAndSorting.exception;
 
 public class CaughtException extends  RuntimeException {
     public CaughtException(String message){

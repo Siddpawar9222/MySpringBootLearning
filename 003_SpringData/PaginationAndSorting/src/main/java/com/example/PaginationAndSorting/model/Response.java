@@ -1,4 +1,4 @@
-package com.makersharks.makersharks_assessment.model;
+package com.example.PaginationAndSorting.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
