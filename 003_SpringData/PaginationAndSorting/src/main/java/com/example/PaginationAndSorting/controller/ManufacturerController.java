@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
+
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/supplier/")
 @RequiredArgsConstructor
