@@ -46,7 +46,6 @@ public class ApplicationExceptionHandler {
 //        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 //    }
 
-
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public ResponseEntity<Response> handleInvalidArgument(MissingServletRequestParameterException exception) {
         Response response = new Response();
@@ -68,5 +67,4 @@ public class ApplicationExceptionHandler {
         response.setMessage(exception.getMessage());
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
 }
