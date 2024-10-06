@@ -2,6 +2,7 @@ package com.makersharks.makersharks_assessment.controller;
 
 import com.makersharks.makersharks_assessment.model.Response;
 import com.makersharks.makersharks_assessment.service.ManufacturerService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -19,18 +20,15 @@ import java.util.Date;
 @RequestMapping("/api/supplier/")
 @RequiredArgsConstructor
 @Slf4j
-@Tag(name = "Supplier", description = "Supplier API")
+@Tag(name = "Supplier", description = "Search Supplier")
 @SecurityRequirement(name = "bearerAuth")
 public class ManufacturerController {
 
     private final ManufacturerService manufacturerService;
 
-//    @PostMapping("/searchSupplier")
-//    public List<Manufacturer> getSupplier(@RequestParam(value = "location",required = true) String location) {
-//        return manufacturerService.searchSupplier(location);
-//    }
 
     @PostMapping("/searchSupplier")
+    @Operation(summary = "Search Supplier by location, nature of business and manufacturing processes")
     public ResponseEntity<Response> getSupplier(
             @RequestParam(value = "location", required = true) String location,
             @RequestParam(value = "nature_of_business" ,required = true) String natureOfBusiness,

@@ -7,6 +7,9 @@ import com.makersharks.makersharks_assessment.exception.ResourceUnavailableExcep
 import com.makersharks.makersharks_assessment.exception.UsernameAlreadyExistException;
 import com.makersharks.makersharks_assessment.model.Response;
 import com.makersharks.makersharks_assessment.service.AuthService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +33,8 @@ public class AuthController {
 
 
     @PostMapping("/register")
+    @SecurityRequirements
+    @Operation(summary = "User registration", description = "Register new user")  // No security for this endpoint
     public ResponseEntity<Response> registerUser(@RequestBody @Valid UserDto userDto) throws BadRequestException, ResourceUnavailableException, UsernameAlreadyExistException {
         log.info("registerUser controller called ::: {} ", new Date());
         Response response = authService.registerUser(userDto);
@@ -38,6 +43,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
+    @SecurityRequirements
+    @Operation(summary = "User login", description = "Login endpoint", security = {})  // No security for this endpoint
     public ResponseEntity<Response> authenticateUser(@RequestBody @Valid UserDto userDto) throws LoginException {
         log.info("authenticateUser controller called ::: {} ", new Date());
         Response response = authService.authenticateAndGetToken(userDto);

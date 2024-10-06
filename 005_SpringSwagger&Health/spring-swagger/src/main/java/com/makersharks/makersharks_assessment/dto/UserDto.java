@@ -17,6 +17,7 @@ public class UserDto {
 
     @NotBlank(message = "Email is mandatory")
     @Email(message = "Email should be valid")
+    @Schema(example = "b5vLH@example.com")
     private String email;
 
     @NotBlank(message = "Password is mandatory")

@@ -1,31 +1,30 @@
 package com.makersharks.makersharks_assessment.config;
 
-import java.util.List;
-
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.models.Components;
-import io.swagger.v3.oas.models.security.SecurityRequirement;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.servers.Server;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import java.util.List;
+
 @Configuration
-@SecurityScheme(
-        name = "bearerAuth",
-        type = SecuritySchemeType.HTTP,
-        bearerFormat = "JWT",
-        scheme = "bearer"
-)
+//@SecurityScheme(
+//        name = "bearerAuth",
+//        type = SecuritySchemeType.HTTP,
+//        bearerFormat = "JWT",
+//        scheme = "bearer"
+//)
 public class OpenAPIConfig {
 
     @Value("${makersharks.openapi.dev-url}")
@@ -36,6 +35,7 @@ public class OpenAPIConfig {
 
     @Bean
     public OpenAPI myOpenAPI() {
+
         Server devServer = new Server();
         devServer.setUrl(devUrl);
         devServer.setDescription("Server URL in Development environment");
@@ -49,17 +49,27 @@ public class OpenAPIConfig {
         contact.setName("Siddhesh Pawar");
         contact.setUrl("https://siddheshportfolio92222.netlify.app/");
 
+
         License mitLicense = new License().name("MIT License").url("https://choosealicense.com/licenses/mit/");
 
         Info info = new Info()
-                .title("makersharks-assessment API")
+                .title("SpringBoot Swagger Learning")
                 .version("1.0")
                 .contact(contact)
-                .description("API for Makersharks Assessment").termsOfService("https://example.com/terms")
+                .description("API for swagger learning").termsOfService("https://example.com/terms")
                 .license(mitLicense);
 
         return new OpenAPI()
-                .info(info).servers(List.of(devServer, prodServer));
+                .info(info)
+                .servers(List.of(devServer, prodServer))
+                .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
+                .components(new Components().addSecuritySchemes("bearerAuth", new io.swagger.v3.oas.models.security.SecurityScheme()
+                        .type(io.swagger.v3.oas.models.security.SecurityScheme.Type.HTTP)
+                        .scheme("bearer")
+                        .bearerFormat("JWT")
+                        .in(io.swagger.v3.oas.models.security.SecurityScheme.In.HEADER)
+                        .name("Authorization")
+                ));
 
     }
 
@@ -76,5 +86,8 @@ public class OpenAPIConfig {
         source.registerCorsConfiguration("/swagger/**", config);
         return new CorsFilter(source);
     }
+
+    // Custom OpenApiCustomizer to disable security for specific paths
+
 
 }
