@@ -1,0 +1,211 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > EmployeeServiceTest</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.test.springtest.service</a>
+</div>
+
+<h1>Coverage Summary for Class: EmployeeServiceTest (com.test.springtest.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">EmployeeServiceTest</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/31)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.test.springtest.service;
+&nbsp;
+&nbsp;import com.test.springtest.dto.EmployeeRequest;
+&nbsp;import com.test.springtest.exception.EmployeeNotFoundException;
+&nbsp;import com.test.springtest.exception.EmployeesNotPresent;
+&nbsp;import com.test.springtest.model.Employee;
+&nbsp;import com.test.springtest.repository.EmployeeRepository;
+&nbsp;import org.junit.jupiter.api.AfterEach;
+&nbsp;import org.junit.jupiter.api.BeforeEach;
+&nbsp;import org.junit.jupiter.api.Test;
+&nbsp;import org.mockito.Mock;
+&nbsp;import org.mockito.MockitoAnnotations;
+&nbsp;
+&nbsp;import java.util.*;
+&nbsp;
+&nbsp;import static org.assertj.core.api.Assertions.assertThat;
+&nbsp;import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+&nbsp;import static org.mockito.Mockito.*;
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;class EmployeeServiceTest {</b>
+&nbsp;    @Mock
+&nbsp;    private EmployeeRepository employeeRepository;
+&nbsp;
+&nbsp;    private EmployeeService employeeService;
+&nbsp;
+&nbsp;    AutoCloseable autoCloseable;
+&nbsp;
+&nbsp;    Employee returnEmployee;
+&nbsp;    EmployeeRequest employeeRequest;
+&nbsp;
+&nbsp;    @BeforeEach
+&nbsp;    void setUp() {
+<b class="nc">&nbsp;        this.autoCloseable = MockitoAnnotations.openMocks(this);</b>
+<b class="nc">&nbsp;        this.employeeService = new EmployeeService(employeeRepository);</b>
+&nbsp;
+<b class="nc">&nbsp;        this.returnEmployee = new Employee(1, &quot;Siddhesh&quot;, &quot;siddhesh@123&quot;, &quot;1234567890&quot;, &quot;Male&quot;, 22, &quot;Indian&quot;);</b>
+<b class="nc">&nbsp;        this.employeeRequest = new EmployeeRequest(&quot;Siddhesh&quot;, &quot;siddhesh@123&quot;, &quot;1234567890&quot;, &quot;Male&quot;, 22, &quot;Indian&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @AfterEach
+&nbsp;    void tearDown() throws Exception {
+<b class="nc">&nbsp;        this.autoCloseable.close();</b>
+<b class="nc">&nbsp;        this.returnEmployee = null;</b>
+<b class="nc">&nbsp;        this.employeeRequest = null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void saveEmployee() {
+<b class="nc">&nbsp;        when(employeeRepository.save(any(Employee.class))).thenReturn(returnEmployee);</b>
+<b class="nc">&nbsp;        Employee savedEmployee = employeeService.saveEmployee(employeeRequest);</b>
+<b class="nc">&nbsp;        assertThat(savedEmployee).isEqualTo(returnEmployee);</b>
+<b class="nc">&nbsp;        verify(employeeRepository, times(1)).save(any(Employee.class));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void getAllEmployeesSuccess() throws EmployeesNotPresent {
+<b class="nc">&nbsp;        when(employeeRepository.findAll()).thenReturn(Collections.singletonList(returnEmployee));</b>
+<b class="nc">&nbsp;        List&lt;Employee&gt; allEmployees = employeeService.getAllEmployees();</b>
+<b class="nc">&nbsp;        assertThat(allEmployees).isEqualTo(Collections.singletonList(returnEmployee));</b>
+&nbsp;
+&nbsp;        // Assertions to verify result
+<b class="nc">&nbsp;        assertThat(allEmployees).isNotNull();</b>
+<b class="nc">&nbsp;        assertThat(allEmployees.size()).isEqualTo(1);</b>
+<b class="nc">&nbsp;        assertThat(allEmployees).contains(returnEmployee);</b>
+&nbsp;
+&nbsp;        // Verify repository interaction
+<b class="nc">&nbsp;        verify(employeeRepository, times(1)).findAll();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void getAllEmployeesFailure() {
+&nbsp;        // Mock repository behavior to return an empty list as Iterable
+<b class="nc">&nbsp;        when(employeeRepository.findAll()).thenReturn(new ArrayList&lt;&gt;());</b>
+&nbsp;
+&nbsp;        // Call the service method and assert exception
+<b class="nc">&nbsp;        assertThatThrownBy(() -&gt; employeeService.getAllEmployees())</b>
+<b class="nc">&nbsp;                .isInstanceOf(EmployeesNotPresent.class)</b>
+<b class="nc">&nbsp;                .hasMessage(&quot;Employee List is Empty&quot;);</b>
+&nbsp;
+&nbsp;        // Verify repository interaction
+<b class="nc">&nbsp;        verify(employeeRepository, times(1)).findAll();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void getEmployee() throws EmployeeNotFoundException {
+<b class="nc">&nbsp;        when(employeeRepository.findById(1)).thenReturn(Optional.of(returnEmployee));</b>
+<b class="nc">&nbsp;        Employee employee = employeeService.getEmployee(1);</b>
+<b class="nc">&nbsp;        assertThat(employee).isEqualTo(returnEmployee);</b>
+<b class="nc">&nbsp;        verify(employeeRepository, times(1)).findById(1);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void deleteEmployeeById(){
+&nbsp;        // Arrange
+<b class="nc">&nbsp;        Integer employeeId = 1;</b>
+&nbsp;
+&nbsp;        // Act
+<b class="nc">&nbsp;        employeeService.deleteEmployeeById(employeeId);</b>
+&nbsp;
+&nbsp;        // Assert
+<b class="nc">&nbsp;        verify(employeeRepository, times(1)).deleteById(employeeId);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-05 18:21</div>
+</div>
+</body>
+</html>

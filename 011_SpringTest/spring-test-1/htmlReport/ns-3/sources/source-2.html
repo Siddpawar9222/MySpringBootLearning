@@ -1,0 +1,290 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > UserControllerTest</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.test.springtest.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: UserControllerTest (com.test.springtest.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UserControllerTest</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/81)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.test.springtest.controller;
+&nbsp;
+&nbsp;import com.fasterxml.jackson.databind.ObjectMapper;
+&nbsp;import com.test.springtest.advice.ApplicationExceptionHandler;
+&nbsp;import com.test.springtest.dto.EmployeeRequest;
+&nbsp;import com.test.springtest.exception.EmployeeNotFoundException;
+&nbsp;import com.test.springtest.exception.EmployeesNotPresent;
+&nbsp;import com.test.springtest.model.Employee;
+&nbsp;import com.test.springtest.service.EmployeeService;
+&nbsp;import org.junit.jupiter.api.AfterEach;
+&nbsp;import org.junit.jupiter.api.BeforeEach;
+&nbsp;import org.junit.jupiter.api.Test;
+&nbsp;import org.junit.jupiter.api.extension.ExtendWith;
+&nbsp;import org.mockito.InjectMocks;
+&nbsp;import org.mockito.Mock;
+&nbsp;import org.mockito.junit.jupiter.MockitoExtension;
+&nbsp;import org.springframework.boot.test.context.SpringBootTest;
+&nbsp;import org.springframework.http.MediaType;
+&nbsp;import org.springframework.test.web.servlet.MockMvc;
+&nbsp;import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;import static org.mockito.Mockito.when;
+&nbsp;import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+&nbsp;import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+&nbsp;import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+&nbsp;
+&nbsp;@ExtendWith(MockitoExtension.class)
+&nbsp;@SpringBootTest
+<b class="nc">&nbsp;class UserControllerTest {</b>
+&nbsp;
+&nbsp;    private MockMvc mockMvc;
+&nbsp;
+&nbsp;    @Mock
+&nbsp;    private EmployeeService employeeService;
+&nbsp;
+&nbsp;    @InjectMocks
+&nbsp;    private UserController userController;
+&nbsp;
+&nbsp;    @InjectMocks
+&nbsp;    private ApplicationExceptionHandler applicationExceptionHandler;
+&nbsp;
+&nbsp;    private Employee employee1;
+&nbsp;    private Employee employee2;
+&nbsp;    private EmployeeRequest employeeRequest;
+&nbsp;
+&nbsp;    private List&lt;Employee&gt; employeeList;
+&nbsp;
+&nbsp;    @BeforeEach
+&nbsp;    void setUp() {
+<b class="nc">&nbsp;        mockMvc = MockMvcBuilders</b>
+<b class="nc">&nbsp;                .standaloneSetup(userController)</b>
+<b class="nc">&nbsp;                .setControllerAdvice(applicationExceptionHandler)</b>
+<b class="nc">&nbsp;                .build();</b>
+&nbsp;
+<b class="nc">&nbsp;        employee1 = new Employee(1, &quot;Siddhesh&quot;, &quot;siddhesh@123&quot;, &quot;1234567890&quot;, &quot;Male&quot;, 22, &quot;Indian&quot;);</b>
+<b class="nc">&nbsp;        employee2 = new Employee(2, &quot;Amit&quot;, &quot;amit@123&quot;, &quot;1234567890&quot;, &quot;Male&quot;, 22, &quot;Indian&quot;);</b>
+<b class="nc">&nbsp;        employeeRequest = new EmployeeRequest(&quot;Siddhesh&quot;, &quot;siddhesh@123&quot;, &quot;1234567890&quot;, &quot;Male&quot;, 22, &quot;Indian&quot;);</b>
+<b class="nc">&nbsp;        employeeList = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        employeeList.add(employee1);</b>
+<b class="nc">&nbsp;        employeeList.add(employee2);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @AfterEach
+&nbsp;    void tearDown() {
+<b class="nc">&nbsp;        employeeList.clear();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void getEmployeeSuccessJsonPath() throws Exception {
+<b class="nc">&nbsp;        when(employeeService.getEmployee(1)).thenReturn(employee1);</b>
+&nbsp;
+<b class="nc">&nbsp;        mockMvc.perform(get(&quot;/users/employee/1&quot;)</b>
+<b class="nc">&nbsp;                        .contentType(MediaType.APPLICATION_JSON))</b>
+<b class="nc">&nbsp;                .andDo(print())</b>
+<b class="nc">&nbsp;                .andExpect(status().isOk())</b>
+<b class="nc">&nbsp;                .andExpect(jsonPath(&quot;$.id&quot;).value(1))</b>
+<b class="nc">&nbsp;                .andExpect(jsonPath(&quot;$.name&quot;).value(&quot;Siddhesh&quot;))</b>
+<b class="nc">&nbsp;                .andExpect(jsonPath(&quot;$.email&quot;).value(&quot;siddhesh@123&quot;))</b>
+<b class="nc">&nbsp;                .andExpect(jsonPath(&quot;$.mobileNo&quot;).value(&quot;1234567890&quot;))</b>
+<b class="nc">&nbsp;                .andExpect(jsonPath(&quot;$.gender&quot;).value(&quot;Male&quot;))</b>
+<b class="nc">&nbsp;                .andExpect(jsonPath(&quot;$.age&quot;).value(22))</b>
+<b class="nc">&nbsp;                .andExpect(jsonPath(&quot;$.nationality&quot;).value(&quot;Indian&quot;))</b>
+&nbsp;
+&nbsp;        ;
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void getEmployeeSuccessMapper() throws Exception {
+<b class="nc">&nbsp;        when(employeeService.getEmployee(1)).thenReturn(employee1);</b>
+&nbsp;
+<b class="nc">&nbsp;        mockMvc.perform(get(&quot;/users/employee/1&quot;)</b>
+<b class="nc">&nbsp;                        .contentType(MediaType.APPLICATION_JSON))</b>
+<b class="nc">&nbsp;                .andDo(print())</b>
+<b class="nc">&nbsp;                .andExpect(status().isOk())</b>
+<b class="nc">&nbsp;                .andExpect(content().json(new ObjectMapper().writeValueAsString(employee1)));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void saveEmployeeSuccess() throws Exception {
+<b class="nc">&nbsp;        when(employeeService.saveEmployee(employeeRequest)).thenReturn(employee1);</b>
+&nbsp;
+<b class="nc">&nbsp;        mockMvc.perform(post(&quot;/users/signup&quot;)</b>
+<b class="nc">&nbsp;                        .contentType(MediaType.APPLICATION_JSON)</b>
+<b class="nc">&nbsp;                        .content(new ObjectMapper().writeValueAsString(employeeRequest)))</b>
+<b class="nc">&nbsp;                .andDo(print())</b>
+<b class="nc">&nbsp;                .andExpect(status().isCreated())</b>
+<b class="nc">&nbsp;                .andExpect(jsonPath(&quot;$.id&quot;).value(1))</b>
+<b class="nc">&nbsp;                .andExpect(jsonPath(&quot;$.name&quot;).value(&quot;Siddhesh&quot;))</b>
+<b class="nc">&nbsp;                .andExpect(jsonPath(&quot;$.email&quot;).value(&quot;siddhesh@123&quot;))</b>
+<b class="nc">&nbsp;                .andExpect(jsonPath(&quot;$.mobileNo&quot;).value(&quot;1234567890&quot;))</b>
+<b class="nc">&nbsp;                .andExpect(jsonPath(&quot;$.gender&quot;).value(&quot;Male&quot;))</b>
+<b class="nc">&nbsp;                .andExpect(jsonPath(&quot;$.age&quot;).value(22))</b>
+<b class="nc">&nbsp;                .andExpect(jsonPath(&quot;$.nationality&quot;).value(&quot;Indian&quot;));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void getEmployeesSuccess() throws Exception {
+<b class="nc">&nbsp;        when(employeeService.getAllEmployees()).thenReturn(employeeList);</b>
+&nbsp;
+<b class="nc">&nbsp;        mockMvc.perform(get(&quot;/users/employees&quot;)</b>
+<b class="nc">&nbsp;                        .contentType(MediaType.APPLICATION_JSON))</b>
+<b class="nc">&nbsp;                .andDo(print())</b>
+<b class="nc">&nbsp;                .andExpect(status().isOk())</b>
+<b class="nc">&nbsp;                .andExpect(jsonPath(&quot;$[0].id&quot;).value(1))</b>
+<b class="nc">&nbsp;                .andExpect(jsonPath(&quot;$[0].name&quot;).value(&quot;Siddhesh&quot;));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void getEmployeeSuccess() throws Exception {
+<b class="nc">&nbsp;        when(employeeService.getEmployee(1)).thenReturn(employee1);</b>
+&nbsp;
+<b class="nc">&nbsp;        mockMvc.perform(get(&quot;/users/employee/1&quot;)</b>
+<b class="nc">&nbsp;                        .contentType(MediaType.APPLICATION_JSON))</b>
+<b class="nc">&nbsp;                .andDo(print())</b>
+<b class="nc">&nbsp;                .andExpect(status().isOk())</b>
+<b class="nc">&nbsp;                .andExpect(jsonPath(&quot;$.id&quot;).value(1))</b>
+<b class="nc">&nbsp;                .andExpect(jsonPath(&quot;$.name&quot;).value(&quot;Siddhesh&quot;));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void findEmployeeByAgeSuccess() throws Exception {
+<b class="nc">&nbsp;        when(employeeService.getEmployeeByAge(22)).thenReturn(employeeList);</b>
+&nbsp;
+<b class="nc">&nbsp;        mockMvc.perform(get(&quot;/users/emp-age/22&quot;)</b>
+<b class="nc">&nbsp;                        .contentType(MediaType.APPLICATION_JSON))</b>
+<b class="nc">&nbsp;                .andDo(print())</b>
+<b class="nc">&nbsp;                .andExpect(status().isOk())</b>
+<b class="nc">&nbsp;                .andExpect(jsonPath(&quot;$[0].id&quot;).value(1))</b>
+<b class="nc">&nbsp;                .andExpect(jsonPath(&quot;$[0].age&quot;).value(22));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void findEmployeeByEmailSuccess() throws Exception {
+<b class="nc">&nbsp;        when(employeeService.getEmployeeByEmail(&quot;j%&quot;)).thenReturn(employeeList);</b>
+&nbsp;
+<b class="nc">&nbsp;        mockMvc.perform(get(&quot;/users/emp-email/j&quot;)</b>
+<b class="nc">&nbsp;                        .contentType(MediaType.APPLICATION_JSON))</b>
+<b class="nc">&nbsp;                .andDo(print())</b>
+<b class="nc">&nbsp;                .andExpect(status().isOk())</b>
+<b class="nc">&nbsp;                .andExpect(jsonPath(&quot;$[0].id&quot;).value(1))</b>
+<b class="nc">&nbsp;                .andExpect(jsonPath(&quot;$[0].email&quot;).value(&quot;siddhesh@123&quot;));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void getEmployeesNotPresent() throws Exception {
+<b class="nc">&nbsp;        when(employeeService.getAllEmployees()).thenThrow(EmployeesNotPresent.class);</b>
+&nbsp;
+<b class="nc">&nbsp;        mockMvc.perform(get(&quot;/users/employees&quot;)</b>
+<b class="nc">&nbsp;                        .contentType(MediaType.APPLICATION_JSON))</b>
+<b class="nc">&nbsp;                .andDo(print())</b>
+<b class="nc">&nbsp;                .andExpect(status().isNotFound());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void getEmployeeNotFound() throws Exception {
+<b class="nc">&nbsp;        when(employeeService.getEmployee(1)).thenThrow(EmployeeNotFoundException.class);</b>
+&nbsp;
+<b class="nc">&nbsp;        mockMvc.perform(get(&quot;/users/employee/1&quot;)</b>
+<b class="nc">&nbsp;                        .contentType(MediaType.APPLICATION_JSON))</b>
+<b class="nc">&nbsp;                .andDo(print())</b>
+<b class="nc">&nbsp;                .andExpect(status().isNotFound());</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-05 18:21</div>
+</div>
+</body>
+</html>

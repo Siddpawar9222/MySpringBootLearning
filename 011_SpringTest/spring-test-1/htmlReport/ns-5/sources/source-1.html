@@ -1,0 +1,196 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > EmployeeRepositoryTest</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.test.springtest.repository</a>
+</div>
+
+<h1>Coverage Summary for Class: EmployeeRepositoryTest (com.test.springtest.repository)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">EmployeeRepositoryTest</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    87.5%
+  </span>
+  <span class="absValue">
+    (7/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    92.3%
+  </span>
+  <span class="absValue">
+    (12/13)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.test.springtest.repository;
+&nbsp;
+&nbsp;import com.test.springtest.model.Employee;
+&nbsp;import org.junit.jupiter.api.AfterEach;
+&nbsp;import org.junit.jupiter.api.BeforeEach;
+&nbsp;import org.junit.jupiter.api.Disabled;
+&nbsp;import org.junit.jupiter.api.Test;
+&nbsp;import org.junit.jupiter.params.ParameterizedTest;
+&nbsp;import org.junit.jupiter.params.provider.CsvSource;
+&nbsp;import org.junit.jupiter.params.provider.ValueSource;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;import static org.assertj.core.api.Assertions.assertThat;
+&nbsp;import static org.junit.jupiter.api.Assertions.*;
+&nbsp;
+&nbsp;
+&nbsp;@DataJpaTest
+<b class="fc">&nbsp;public class EmployeeRepositoryTest {</b>
+&nbsp;
+&nbsp;    // given
+&nbsp;    // when
+&nbsp;    // then
+&nbsp;    @Autowired
+&nbsp;    private EmployeeRepository employeeRepository;
+&nbsp;
+&nbsp;    Employee employee ;
+&nbsp;
+&nbsp;    @BeforeEach
+&nbsp;    void setUp() {
+<b class="fc">&nbsp;       employee = new Employee(null ,&quot;Siddhesh&quot;, &quot;siddhesh@123&quot;, &quot;1234567890&quot;, &quot;Male&quot;, 22, &quot;Indian&quot;);</b>
+<b class="fc">&nbsp;       employeeRepository.save(employee);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @AfterEach
+&nbsp;    void tearDown() {
+<b class="fc">&nbsp;        employee=null;</b>
+<b class="fc">&nbsp;        employeeRepository.deleteAll();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Disabled
+&nbsp;    @Test
+&nbsp;    public void testSomething(){
+<b class="nc">&nbsp;          assertEquals(10,5+4);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @ParameterizedTest
+&nbsp;    @CsvSource(
+&nbsp;            {
+&nbsp;                    &quot;1,2,3&quot;,
+&nbsp;                    &quot;2,3,5&quot;,
+&nbsp;                    &quot;3,4,7&quot;,
+&nbsp;                    &quot;4,5,9&quot;,
+&nbsp;                    &quot;5,6,11&quot;,
+&nbsp;                    &quot;6,7,13&quot;,
+&nbsp;                    &quot;7,8,15&quot;,
+&nbsp;                    &quot;8,9,17&quot;,
+&nbsp;                    &quot;9,10,19&quot;,
+&nbsp;                    &quot;10,11,21&quot;
+&nbsp;            }
+&nbsp;    )  // Here you can load csv file from application.properties file too
+&nbsp;    public  void testSomething(int a, int b,int expected){
+<b class="fc">&nbsp;        assertEquals(expected, a+b);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    @ParameterizedTest
+&nbsp;    @ValueSource(
+&nbsp;            strings = {&quot;siddhesh@123&quot;,&quot;+++++++&quot;}
+&nbsp;    )
+&nbsp;    public  void testSomething(String email){
+<b class="fc">&nbsp;         assertNotNull(employeeRepository.findEmployeeByEmail(email),&quot;Failed for &quot;+email);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    // Test case : SUCCESS
+&nbsp;    @Test
+&nbsp;    void findEmployeeByEmailFound() {
+<b class="fc">&nbsp;        List&lt;Employee&gt; employeeByEmail = employeeRepository.findEmployeeByEmail(&quot;siddhesh@123&quot;);</b>
+<b class="fc">&nbsp;        assertThat(employeeByEmail.get(0).getId()).isEqualTo(employee.getId());</b>
+<b class="fc">&nbsp;        assertThat(employeeByEmail.get(0).getEmail()).isEqualTo(employee.getEmail());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    // Test case : FAILURE
+&nbsp;    @Test
+&nbsp;    void findEmployeeByEmailNotFound() {
+<b class="fc">&nbsp;        List&lt;Employee&gt; employeeByEmail = employeeRepository.findEmployeeByEmail(&quot;123&quot;);</b>
+<b class="fc">&nbsp;        assertThat(employeeByEmail.isEmpty()).isTrue();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-05 18:21</div>
+</div>
+</body>
+</html>

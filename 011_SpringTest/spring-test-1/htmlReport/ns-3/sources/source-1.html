@@ -1,0 +1,151 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > UserController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.test.springtest.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: UserController (com.test.springtest.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UserController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.test.springtest.controller;
+&nbsp;
+&nbsp;import com.test.springtest.dto.EmployeeRequest;
+&nbsp;import com.test.springtest.exception.EmployeeNotFoundException;
+&nbsp;import com.test.springtest.exception.EmployeesNotPresent;
+&nbsp;import com.test.springtest.model.Employee;
+&nbsp;import com.test.springtest.service.EmployeeService;
+&nbsp;import jakarta.validation.Valid;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.http.HttpStatus;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@RestController
+&nbsp;@RequestMapping(&quot;/users&quot;)
+<b class="nc">&nbsp;public class UserController {</b>
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private EmployeeService employeeService ;
+&nbsp;
+&nbsp;    @PostMapping(&quot;/signup&quot;)
+&nbsp;    public ResponseEntity&lt;Employee&gt; saveEmployee(@RequestBody @Valid EmployeeRequest employeeRequest){
+<b class="nc">&nbsp;        return new ResponseEntity&lt;&gt;(employeeService.saveEmployee(employeeRequest), HttpStatus.CREATED);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/employees&quot;)
+&nbsp;    public ResponseEntity&lt;List&lt;Employee&gt;&gt; getEmployees() throws EmployeesNotPresent {
+<b class="nc">&nbsp;       return ResponseEntity.ok(employeeService.getAllEmployees()) ;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/employee/{id}&quot;)
+&nbsp;    public  ResponseEntity&lt;Employee&gt;getEmployee(@PathVariable int id) throws EmployeeNotFoundException {
+<b class="nc">&nbsp;        return ResponseEntity.ok(employeeService.getEmployee(id)) ;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/emp-age/{age}&quot;)
+&nbsp;    public ResponseEntity&lt;List&lt;Employee&gt;&gt; findEmmployeeByAge(@PathVariable int age){
+<b class="nc">&nbsp;       return ResponseEntity.ok(employeeService.getEmployeeByAge(age));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    //employee email start with j
+&nbsp;    @GetMapping(&quot;/emp-email/{email}&quot;)
+&nbsp;    public ResponseEntity&lt;List&lt;Employee&gt;&gt; findEmmployeeByEmail(@PathVariable String email){
+<b class="nc">&nbsp;       return ResponseEntity.ok(employeeService.getEmployeeByEmail(email+&quot;%&quot;));</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-05 18:21</div>
+</div>
+</body>
+</html>
