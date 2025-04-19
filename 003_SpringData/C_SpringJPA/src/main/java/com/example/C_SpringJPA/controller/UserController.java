@@ -1,10 +1,10 @@
-package com.example.C_SpringJPA.controller;
+package com.example.springhealth.controller;
 
-import com.example.C_SpringJPA.dto.EmployeeRequest;
-import com.example.C_SpringJPA.exception.EmployeeNotFoundException;
-import com.example.C_SpringJPA.exception.EmployeesNotPresent;
-import com.example.C_SpringJPA.model.Employee;
-import com.example.C_SpringJPA.service.EmployeeService;
+import com.example.springhealth.dto.EmployeeRequest;
+import com.example.springhealth.exception.EmployeeNotFoundException;
+import com.example.springhealth.exception.EmployeesNotPresent;
+import com.example.springhealth.model.Employee;
+import com.example.springhealth.service.EmployeeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,10 +1,10 @@
-package com.example.C_SpringJPA.service;
+package com.example.springhealth.service;
 
-import com.example.C_SpringJPA.dto.EmployeeRequest;
-import com.example.C_SpringJPA.exception.EmployeeNotFoundException;
-import com.example.C_SpringJPA.exception.EmployeesNotPresent;
-import com.example.C_SpringJPA.model.Employee;
-import com.example.C_SpringJPA.repository.EmployeeRepository;
+import com.example.springhealth.dto.EmployeeRequest;
+import com.example.springhealth.exception.EmployeeNotFoundException;
+import com.example.springhealth.exception.EmployeesNotPresent;
+import com.example.springhealth.model.Employee;
+import com.example.springhealth.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

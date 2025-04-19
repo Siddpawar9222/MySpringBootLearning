@@ -1,7 +1,7 @@
-package com.example.C_SpringJPA.advice;
+package com.example.springhealth.advice;
 
-import com.example.C_SpringJPA.exception.EmployeeNotFoundException;
-import com.example.C_SpringJPA.exception.EmployeesNotPresent;
+import com.example.springhealth.exception.EmployeeNotFoundException;
+import com.example.springhealth.exception.EmployeesNotPresent;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;

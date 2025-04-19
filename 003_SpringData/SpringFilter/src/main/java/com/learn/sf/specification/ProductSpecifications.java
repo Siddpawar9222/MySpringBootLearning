@@ -30,3 +30,9 @@ public class ProductSpecifications {
         return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("availability"),availability);
     }
 }
+
+/*
+ if (category == null) {
+     return criteriaBuilder.conjunction(); // Always true, no filtering if category is null
+ }
+*/

@@ -61,7 +61,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+			<scope>test</scope>    <!--Which means this dependency only added at testing phase not while build phase-->
 		</dependency>
 	</dependencies>
 

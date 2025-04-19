@@ -1,6 +1,6 @@
-package com.example.C_SpringJPA.repository;
+package com.example.springhealth.repository;
 
-import com.example.C_SpringJPA.model.Employee;
+import com.example.springhealth.model.Employee;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

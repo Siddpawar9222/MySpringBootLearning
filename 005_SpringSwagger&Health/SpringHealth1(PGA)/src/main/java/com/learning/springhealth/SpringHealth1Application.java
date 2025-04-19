@@ -1,13 +1,13 @@
-package com.example.springhealth;
+package com.learning.springhealth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CSpringJpaApplication {
+public class SpringHealth1Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CSpringJpaApplication.class, args);
+		SpringApplication.run(SpringHealth1Application.class, args);
 	}
 
 }

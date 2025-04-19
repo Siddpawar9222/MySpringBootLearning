@@ -1,4 +1,4 @@
-package com.example.C_SpringJPA.exception;
+package com.example.springhealth.exception;
 
 public class EmployeeNotFoundException extends  Exception {
     public EmployeeNotFoundException(String message) {

@@ -1,4 +1,4 @@
-package com.example.C_SpringJPA.model;
+package com.example.springhealth.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

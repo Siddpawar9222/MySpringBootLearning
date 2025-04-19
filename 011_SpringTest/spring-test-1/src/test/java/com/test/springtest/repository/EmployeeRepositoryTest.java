@@ -60,7 +60,7 @@ public class EmployeeRepositoryTest {
                     "9,10,19",
                     "10,11,21"
             }
-    )  // Here you can load csv file from application.properties file too
+    )  // Here you can load csv file from resource folder
     public  void testSomething(int a, int b,int expected){
         assertEquals(expected, a+b);
     }
@@ -91,3 +91,6 @@ public class EmployeeRepositoryTest {
         assertThat(employeeByEmail.isEmpty()).isTrue();
     }
 }
+/*
+@ArgumentResources : Learn about this annotation later(Engineering Digest)
+*/

@@ -1,4 +1,4 @@
-package com.example.C_SpringJPA.dto;
+package com.example.springhealth.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
