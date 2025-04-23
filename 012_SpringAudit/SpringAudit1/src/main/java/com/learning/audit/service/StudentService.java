@@ -3,6 +3,8 @@ package com.learning.audit.service;
 import com.learning.audit.entity.Student;
 import com.learning.audit.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +14,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class StudentService {
 
-    private final StudentRepository studentRepository;
+    private final   StudentRepository studentRepository;
 
     public Student saveStudent(Student student) {
         throw new RuntimeException("Error while saving student");

@@ -1,4 +1,4 @@
-package com.learning.springhealth.entity;
+package com.learning.audit.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

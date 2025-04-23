@@ -1,4 +1,4 @@
-package com.learning.springhealth.aspect;
+package com.learning.audit.aspect;
 
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;

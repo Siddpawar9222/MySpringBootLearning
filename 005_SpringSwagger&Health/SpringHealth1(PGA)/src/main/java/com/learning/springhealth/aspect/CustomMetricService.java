@@ -1,4 +1,4 @@
-package com.learning.springhealth.aspect;
+package com.learning.audit.aspect;
 
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
